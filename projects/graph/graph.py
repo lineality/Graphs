@@ -203,8 +203,8 @@ class Graph:
             # the recursvive call
             self.dfs_recursive(neighbor, destination_vertex, path_list)
 
-        else:  # base case! no more neighbors, you done.
-            # if neighbor not in path_list, add it
+        else:  # base case! next nightbor your check matches search
+            # add it
             path_list.append(neighbor)
 
             # return print("end", path_list) #
