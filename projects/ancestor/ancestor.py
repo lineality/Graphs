@@ -191,12 +191,14 @@ def earliest_ancestor(ancestors, starting_node):
     for this_root in roots:
         pathways_list.append(graph.bfs(this_root, starting_node))
 
+    # some of the path results are none: so filter those out
     # filter out None
     for item in pathways_list:
         if item:
             pathways_list_new.append(item)
 
-    # sort order, smallest first
+    # to fit this problem, smaller number between a tie is required:
+    # so sort the order: smallest first
     pathways_list_new.sort()
 
     # # testing inspection
@@ -204,14 +206,18 @@ def earliest_ancestor(ancestors, starting_node):
     # print(pathways_list)
     # print(max(pathways_list_new, key=len))
 
+    # this finds the longest list in the list of lists! (sneaky)
     longest_rout = max(pathways_list_new, key=len)
 
-    # answers:
-    # check if root:
+    # different modes of answers:
+    # check if the target is a root (oh no! no kids):
     if starting_node in roots:
         answer = -1
+    # otherwise, give a normal answer
     else:
-        # the first link in the family chain: longest ancester
+        # in this case the don't want the whole family tree
+        # they just want the first ancester, so slice that up and serve it:
+        # the first link in the family chain: farthest-back ancester
         answer = longest_rout[0]
 
     return answer
@@ -223,5 +229,5 @@ def earliest_ancestor(ancestors, starting_node):
 # # graph.add_vertex(1)
 # # graph.add_edge(5, 3)
 # starting_node = 11
-# earliest_ancestor(ancestors_tuples_list, starting_node)
+# print(earliest_ancestor(ancestors_tuples_list, starting_node))
 # print("roots", find_roots(ancestors_tuples_list))
