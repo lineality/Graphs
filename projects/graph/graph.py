@@ -194,32 +194,25 @@ class Graph:
 
         # readable 'mask'
         neighbor = list(self.get_neighbors(vertex))[-1]
-        # print("vertex", vertex)
-        # print("neighbor", neighbor)
-        # print("path_list", path_list)
+        print("vertex", vertex)
+        print("neighbor", neighbor)
+        print("path_list", path_list)
+
+        if neighbor is destination_vertex:
+            # base case! next nightbor your check matches search
+            # add it
+            path_list.append(neighbor)
+
+            return path_list
 
         # check if there are any neighbors (look for base-case)
-        if neighbor is not destination_vertex:
 
+        elif neighbor is not destination_vertex:
             # if neighbor not in path_list, add it
             path_list.append(neighbor)
 
             # the recursvive call
             self.dfs_recursive(neighbor, destination_vertex, path_list)
-
-        elif neighbor is None:
-            pass
-
-        else:  # base case! next nightbor your check matches search
-            # add it
-            path_list.append(neighbor)
-
-            print_string = ""
-            # return print("end", path_list) #
-            for i in path_list:
-                print_string += f"{i}\n"
-            return print(path_list)
-            # return print(print_string)
 
 
 if __name__ == "__main__":
