@@ -111,9 +111,13 @@ class Graph:
             self.dft_recursive(neighbor, path_list)
 
         else:  # base case! no more neighbors, you done.
-
-            return print(path_list)
-            # return (for i in path_list: (print i))
+            print_string = ""
+            # return print("end", path_list) #
+            for i in path_list:
+                print_string += f"{i}\n"
+            print_string = print_string[:-1]
+            # return print(path_list)
+            return print(print_string)
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -203,12 +207,19 @@ class Graph:
             # the recursvive call
             self.dfs_recursive(neighbor, destination_vertex, path_list)
 
+        elif neighbor is None:
+            pass
+
         else:  # base case! next nightbor your check matches search
             # add it
             path_list.append(neighbor)
 
+            print_string = ""
             # return print("end", path_list) #
+            for i in path_list:
+                print_string += f"{i}\n"
             return print(path_list)
+            # return print(print_string)
 
 
 if __name__ == "__main__":
