@@ -161,10 +161,11 @@ def earliest_ancestor(ancestors, starting_node):
     # get list of vertices
     vertex_list = get_vertices_from_tuples(ancestors)
 
+    # add vertices(nodes) to your graph
     for vertex in vertex_list:
         graph.add_vertex(vertex)
 
-    # relationships: add edges
+    # relationships: add edges to your graph
     for this_tuple in ancestors:
         # make masks
         first_item = this_tuple[0]
@@ -177,11 +178,16 @@ def earliest_ancestor(ancestors, starting_node):
     # starting with each root
     # do a search for the target
     # and note how many step there were
+
+    # find which are the roots!
     roots = find_roots(ancestors)
 
+    # make some variables to use later
     pathways_list = []
     pathways_list_new = []
 
+    # now search starting with each root
+    # ending at your target progeny
     for this_root in roots:
         pathways_list.append(graph.bfs(this_root, starting_node))
 
