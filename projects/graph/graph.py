@@ -92,14 +92,28 @@ class Graph:
                     ss.push(new_path)
         pass  # TODO
 
-    def dft_recursive(self, starting_vertex):
-        """
-        Print each vertex in depth-first order
-        beginning from starting_vertex.
+    def dft_recursive(self, vertex, path_list=None):
 
-        This should be done using recursion.
-        """
-        pass  # TODO
+        # cache if path is None, instantiate empty list for traversal path
+        if path_list is None:
+            # create and add vertex to path-list
+            path_list = [vertex]
+
+        # readable 'mask'
+        neighbor = list(self.get_neighbors(vertex))[-1]
+
+        # check if there are any neighbors (look for base-case)
+        if neighbor is not None and neighbor not in path_list:
+
+            # if neighbor not in path_list, add it
+            path_list.append(neighbor)
+            # the recursvive call
+            self.dft_recursive(neighbor, path_list)
+
+        else:  # base case! no more neighbors, you done.
+
+            return print(path_list)
+            # return (for i in path_list: (print i))
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -120,7 +134,7 @@ class Graph:
             if path[-1] not in visited:
                 # DO THE THING!!!!!!!
                 if path[-1] == destination_vertex:
-                    print("trigger")
+                    # print("trigger")
                     return path
 
                 # print(path[-1])
@@ -152,7 +166,7 @@ class Graph:
             if path[-1] not in visited:
                 # DO THE THING!!!!!!!
                 if path[-1] == destination_vertex:
-                    print("trigger")
+                    # print("trigger")
                     return path
 
                 # print(path[-1])
