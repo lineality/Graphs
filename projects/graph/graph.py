@@ -179,15 +179,36 @@ class Graph:
                     ss.push(new_path)
         pass  # TODO
 
-    def dfs_recursive(self, starting_vertex, destination_vertex):
-        """
-        Return a list containing a path from
-        starting_vertex to destination_vertex in
-        depth-first order.
+    def dfs_recursive(self, vertex, destination_vertex, path_list=None):
+        # def dft_recursive(self, vertex, path_list = None):
 
-        This should be done using recursion.
-        """
-        pass  # TODO
+        # cache
+        # if path is None, instantiate empty list for traversal path
+        if path_list is None:
+            # create and add vertex to path-list
+            path_list = [vertex]
+
+        # readable 'mask'
+        neighbor = list(self.get_neighbors(vertex))[-1]
+        # print("vertex", vertex)
+        # print("neighbor", neighbor)
+        # print("path_list", path_list)
+
+        # check if there are any neighbors (look for base-case)
+        if neighbor is not destination_vertex:
+
+            # if neighbor not in path_list, add it
+            path_list.append(neighbor)
+
+            # the recursvive call
+            self.dfs_recursive(neighbor, destination_vertex, path_list)
+
+        else:  # base case! no more neighbors, you done.
+            # if neighbor not in path_list, add it
+            path_list.append(neighbor)
+
+            # return print("end", path_list) #
+            return print(path_list)
 
 
 if __name__ == "__main__":
