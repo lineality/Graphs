@@ -90,38 +90,39 @@ def dfs(self, starting_vertex, destination_vertex):
                 new_path.append(next_vert)
                 ss.push(new_path)
 
+    def dfs_recursive_classroom(
+        self, starting_vertex, destination_vertex, visited=None, path=None
+    ):
+        # edges
+        edges = self.get_neighbors(starting_vertex)
 
-def dfs_recursive_classroom(self, edge, destination_vertex, visited, path):
-    # edges
-    edges = self.get_neighbors(starting_vertex)
+        if visited is None:
+            # instantiate empty set for visited
+            visited = set()
 
-    if visited is None:
-        # instantiate empty set for visited
-        visited = set()
+        if path is None:
+            # instantiate empty list for path
+            path = []
 
-    if path is None:
-        # instantiate empty list for path
-        path = []
+        # mark current vertex as visited
+        visited.add(starting_vertex)
 
-    # mark current vertex as visited
-    visited.add(starting_vertex)
+        # defining path
+        path = path + [starting_vertex]
 
-    # defining path
-    path = path + [starting_vertex]
+        # when destination found, return path
+        if starting_vertex == destination_vertex:
+            return path
 
-    # when destination found, return path
-    if starting_vertex == destination_vertex:
-        return path
+        # our base case is if we found the destination vertex,
+        # so it will recurse and will define the new_path
+        for edge in edges:
+            if edge not in visited:
+                new_path = self.dfs_recursive_classroom(
+                    edge, destination_vertex, visited, path
+                )
+                if new_path:
+                    return new_path
 
-    # our base case is if we found the destination vertex,
-    # so it will recurse and will define the new_path
-    for edge in edges:
-        if edge not in visited:
-            new_path = self.dfs_recursive_classroom(
-                edge, destination_vertex, visited, path
-            )
-            if new_path:
-                return new_path
-
-    # return None if path does not exist
-    return None
+        # return None if path does not exist
+        return None
