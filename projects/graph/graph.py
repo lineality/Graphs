@@ -183,6 +183,43 @@ class Graph:
                     ss.push(new_path)
         pass  # TODO
 
+    def dfs_recursive_classroom(
+        self, starting_vertex, destination_vertex, visited=None, path=None
+    ):
+        # edges
+        edges = self.get_neighbors(starting_vertex)
+
+        if visited is None:
+            # instantiate empty set for visited
+            visited = set()
+
+        if path is None:
+            # instantiate empty list for path
+            path = []
+
+        # mark current vertex as visited
+        visited.add(starting_vertex)
+
+        # defining path
+        path = path + [starting_vertex]
+
+        # when destination found, return path
+        if starting_vertex == destination_vertex:
+            return path
+
+        # our base case is if we found the destination vertex,
+        # so it will recurse and will define the new_path
+        for edge in edges:
+            if edge not in visited:
+                new_path = self.dfs_recursive_classroom(
+                    edge, destination_vertex, visited, path
+                )
+                if new_path:
+                    return new_path
+
+        # return None if path does not exist
+        return None
+
     def dfs_recursive(self, vertex, destination_vertex, path_list=None):
         # def dft_recursive(self, vertex, path_list = None):
 
@@ -198,28 +235,21 @@ class Graph:
         # print("neighbor", neighbor)
         # print("path_list", path_list)
 
-        # check if there are any neighbors (look for base-case)
-        if neighbor is not destination_vertex:
+        if neighbor is destination_vertex:
+            # base case! next nightbor your check matches search
+            # add it
+            path_list.append(neighbor)
 
+            return path_list
+
+        # check if there are any neighbors (look for base-case)
+
+        elif neighbor is not destination_vertex:
             # if neighbor not in path_list, add it
             path_list.append(neighbor)
 
             # the recursvive call
-            self.dfs_recursive(neighbor, destination_vertex, path_list)
-
-        elif neighbor is None:
-            pass
-
-        else:  # base case! next nightbor your check matches search
-            # add it
-            path_list.append(neighbor)
-
-            print_string = ""
-            # return print("end", path_list) #
-            for i in path_list:
-                print_string += f"{i}\n"
-            return print(path_list)
-            # return print(print_string)
+            return self.dfs_recursive(neighbor, destination_vertex, path_list)
 
 
 if __name__ == "__main__":
