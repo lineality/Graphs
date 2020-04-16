@@ -228,6 +228,8 @@ def earliest_ancestor(ancestors, starting_node):
 # # graph = Graph()  # Instantiate your graph
 # # graph.add_vertex(1)
 # # graph.add_edge(5, 3)
-# starting_node = 11
-# print(earliest_ancestor(ancestors_tuples_list, starting_node))
+# starting_node = 3
+# print('starting_node is', starting_node)
+# print('-1 means the target has no parents')
+# print("And the oldest ancester is...", earliest_ancestor(ancestors_tuples_list, starting_node))
 # print("roots", find_roots(ancestors_tuples_list))
