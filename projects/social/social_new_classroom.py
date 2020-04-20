@@ -29,6 +29,11 @@ class Stack():
 class User:
     def __init__(self, name):
         self.name = name
+        # add other user data
+        # birthday
+        # 
+    def __repr__(self):
+        return self.name
 
 class SocialGraph:  # makes a class
     def __init__(self):  # constructor
@@ -42,9 +47,11 @@ class SocialGraph:  # makes a class
         Creates a bi-directional friendship
         """
         if user_id == friend_id:
-            print("WARNING: You cannot be friends with yourself")
+            return False
+
         elif friend_id in self.friendships[user_id] or user_id in self.friendships[friend_id]:
-            print("WARNING: Friendship already exists")
+            return False
+
         else:
             self.friendships[user_id].add(friend_id)
             self.friendships[friend_id].add(user_id)
@@ -57,6 +64,7 @@ class SocialGraph:  # makes a class
         self.users[self.last_id] = User(name)
         self.friendships[self.last_id] = set()
 
+    # new version
     def populate_graph(self, num_users, avg_friendships):
             """
             Takes a number of users and an average number of friendships
@@ -78,6 +86,32 @@ class SocialGraph:  # makes a class
             for i in range(0, num_users):
                 self.add_user(f"User {i+1}")
 
+            # new frendship method
+            # randomly make friends, keep new, no dupes
+            # til we get ot number we need
+            # 
+
+            # keep track of freindships and collisions
+
+            target_friendships = num_users * avg_friendships
+            total_friendships = 0
+            collisions = 0
+
+            while total_friendships < target_friendships:
+                user_id = random.randint(1, self.last_id)
+                # we need a friend
+                friend_id = random.randint(1, self.last_id)
+
+                if self.add_friendship(user_id, friend_id):
+                    # issue: how do you increment
+                    # since we divided above, shoudl be 1
+                    total_friendships += 2
+                else:
+                    collisions += 1
+
+            print(f"Total collisions: {collisions}")
+
+
             # Generate all friendship combinations
             possible_friendships = []
             
@@ -86,22 +120,18 @@ class SocialGraph:  # makes a class
                 for friend_id in range(user_id+1, self.last_id+1):
                     possible_friendships.append((user_id, friend_id))
 
-            # Shuffle all possible friendships
-            random.shuffle(possible_friendships)
+            # # Shuffle all possible friendships
+            # random.shuffle(possible_friendships)
 
-            # Create for first X pairs x is total //2
-            for i in range(num_users * avg_friendships // 2):
-                friendship = possible_friendships[i]
-                self.add_friendship(friendship[0], friendship[1])
+            # # Create for first X pairs x is total //2
+            # for i in range(num_users * avg_friendships // 2):
+            #     friendship = possible_friendships[i]
+            #     self.add_friendship(friendship[0], friendship[1])
 
 
     def get_all_social_paths_class(self, user_id):
-
-
         # shortest tells us breadth first
         # extended network - traveersal, connected component
-        # 
-
         # planning:
         # how are we going to build a graph? we done did that one
         # Start at given user id, do a bft, return path to each friend
@@ -124,16 +154,13 @@ class SocialGraph:  # makes a class
 
             # if not visisted
             if vertex not in visited:
-
                 # do the thing
                 # add path to visited
-
                 # add to visited
                 visited[vertex] = path                
 
                 # for each neighbor
                 for neighbor in self.friendships[vertex]:
-
                     # copy path and enq
                     new_path = path.copy()
                     new_path.append(neighbor)

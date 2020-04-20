@@ -13,8 +13,8 @@ world = World()
 # map_file = "maps/test_line.txt"
 # map_file = "maps/test_cross.txt"
 # map_file = "maps/test_loop.txt"
-# map_file = "maps/test_loop_fork.txt"
-map_file = "maps/main_maze.txt"
+map_file = "maps/test_loop_fork.txt"
+# map_file = "maps/main_maze.txt"
 
 # Loads the map into a dictionary
 room_graph=literal_eval(open(map_file, "r").read())
@@ -26,8 +26,8 @@ world.print_rooms()
 player = Player(world.starting_room)
 
 # Fill this out with directions to walk
-# traversal_path = ['n', 'n']
-traversal_path = []
+traversal_path = ['n', 'n']
+# traversal_path = []
 
 
 
@@ -42,6 +42,7 @@ for move in traversal_path:
 
 if len(visited_rooms) == len(room_graph):
     print(f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
+
 else:
     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
     print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
