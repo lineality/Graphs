@@ -46,12 +46,15 @@ class Graph:
         # Create a q and enqueue starting vertex
         qq = Queue()
         qq.enqueue([starting_vertex])
+
         # Create a set of traversed vertices
         visited = set()
+
         # While queue is not empty:
         while qq.size() > 0:
             # dequeue/pop the first vertex
             path = qq.dequeue()
+            
             # if not visited
             if path[-1] not in visited:
                 # DO THE THING!!!!!!!
